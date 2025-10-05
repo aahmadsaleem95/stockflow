@@ -36,12 +36,18 @@ export class ItemsService {
       order: { created_at: 'DESC' },
     });
 
-    return { data, total };
+    const formattedData = data.map((item) => ({
+      ...item,
+      price: parseFloat(item.price as unknown as string),
+    }));
+
+    return { data: formattedData, total };
   }
 
   async findOne(id: number): Promise<Item> {
     const item = await this.itemsRepo.findOne({ where: { id } });
     if (!item) throw new NotFoundException(`Item with ID ${id} not found`);
+    item.price = parseFloat(item.price as unknown as string);
     return item;
   }
 
