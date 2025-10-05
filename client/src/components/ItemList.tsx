@@ -1,11 +1,12 @@
 import React from "react";
 import { Item } from "../types/item";
 import { Link } from "react-router-dom";
+import { DeleteConfirmation } from "./DeleteConfirmation";
 
 interface Props {
   items: Item[];
   loading: boolean;
-  onDelete: (id: number, name: string) => void;
+  onDelete: (id: number) => void;
 }
 
 export const ItemList: React.FC<Props> = ({ items, loading, onDelete }) => {
@@ -69,12 +70,17 @@ export const ItemList: React.FC<Props> = ({ items, loading, onDelete }) => {
                       Edit
                     </button>
                   </Link>
-                  <button
-                    onClick={() => onDelete(it.id, it.title)}
+                  <DeleteConfirmation
+                    onConfirm={onDelete}
+                    itemId={it.id}
+                    itemTitle={it.title}
+                  />
+                  {/* <button
+                    onClick={() => onDelete(it.id)}
                     className="px-3 py-1.5 text-sm font-medium text-white bg-red-600 rounded hover:bg-red-500 transition"
                   >
                     Delete
-                  </button>
+                  </button> */}
                 </div>
               </td>
             </tr>

@@ -44,7 +44,6 @@ export const ItemsPage: React.FC = () => {
   }, [fetch]);
 
   const handleDelete = async (id: number) => {
-    if (!window.confirm("Delete this item?")) return;
     try {
       await deleteItem(id);
       toast.success("Item deleted");
